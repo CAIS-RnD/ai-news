@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/issues/issue-2.html",
       "/issues/issue-1.html"
     ]
   }

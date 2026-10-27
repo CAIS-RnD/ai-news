@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="R&amp;D Team">
+<meta name="dcterms.date" content="2026-10-01">
+
+<title>AI Newsletter #02 – Geometric Deep Learning – CAIS Newsletter</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-affc8120a87045c5dd59519a15182684.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../logo.png" alt="" class="navbar-logo light-content">
+    <img src="../logo.png" alt="" class="navbar-logo dark-content">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">CAIS Newsletter</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">1. Introduction</a></li>
+  <li><a href="#real-world-data-has-structure" id="toc-real-world-data-has-structure" class="nav-link" data-scroll-target="#real-world-data-has-structure">2. Real-world data has structure</a></li>
+  <li><a href="#mathematical-foundations-of-gdl" id="toc-mathematical-foundations-of-gdl" class="nav-link" data-scroll-target="#mathematical-foundations-of-gdl">3. Mathematical foundations of GDL</a>
+  <ul class="collapse">
+  <li><a href="#data-domains-and-signals" id="toc-data-domains-and-signals" class="nav-link" data-scroll-target="#data-domains-and-signals">3.1 Data domains and signals</a></li>
+  <li><a href="#group-theory-in-gdl" id="toc-group-theory-in-gdl" class="nav-link" data-scroll-target="#group-theory-in-gdl">3.2 Group theory in GDL</a></li>
+  <li><a href="#understanding-equivariance" id="toc-understanding-equivariance" class="nav-link" data-scroll-target="#understanding-equivariance">3.3 Understanding equivariance</a></li>
+  </ul></li>
+  <li><a href="#the-blueprint-of-gdl" id="toc-the-blueprint-of-gdl" class="nav-link" data-scroll-target="#the-blueprint-of-gdl">4. The blueprint of GDL</a>
+  <ul class="collapse">
+  <li><a href="#linear-equivariant-map" id="toc-linear-equivariant-map" class="nav-link" data-scroll-target="#linear-equivariant-map">4.1 Linear Equivariant Map</a></li>
+  <li><a href="#nonlinearity" id="toc-nonlinearity" class="nav-link" data-scroll-target="#nonlinearity">4.2 Nonlinearity</a></li>
+  <li><a href="#coarsening" id="toc-coarsening" class="nav-link" data-scroll-target="#coarsening">4.3 Coarsening</a></li>
+  <li><a href="#global-pooling" id="toc-global-pooling" class="nav-link" data-scroll-target="#global-pooling">4.4 Global Pooling</a></li>
+  <li><a href="#the-general-blueprint-of-gdl" id="toc-the-general-blueprint-of-gdl" class="nav-link" data-scroll-target="#the-general-blueprint-of-gdl">4.5 The general blueprint of GDL</a></li>
+  </ul></li>
+  <li><a href="#deriving-convolutional-neural-networks-from-translation-equivariance" id="toc-deriving-convolutional-neural-networks-from-translation-equivariance" class="nav-link" data-scroll-target="#deriving-convolutional-neural-networks-from-translation-equivariance">5. Deriving Convolutional Neural Networks from Translation Equivariance</a>
+  <ul class="collapse">
+  <li><a href="#convolution-emerges-from-translation-symmetry" id="toc-convolution-emerges-from-translation-symmetry" class="nav-link" data-scroll-target="#convolution-emerges-from-translation-symmetry">5.1 Convolution emerges from translation symmetry</a></li>
+  <li><a href="#deriving-the-traditional-cnn-architecture" id="toc-deriving-the-traditional-cnn-architecture" class="nav-link" data-scroll-target="#deriving-the-traditional-cnn-architecture">5.2 Deriving the traditional CNN architecture</a></li>
+  </ul></li>
+  <li><a href="#conclusions-and-final-reflections" id="toc-conclusions-and-final-reflections" class="nav-link" data-scroll-target="#conclusions-and-final-reflections">6. Conclusions and final reflections</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">AI Newsletter #02 – Geometric Deep Learning</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Geometric Deep Learning"</div>
+    <div class="quarto-category">Convolutional Neural Networks</div>
+    <div class="quarto-category">Equivariant Deep Learning</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>R&amp;D Team </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 1, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div style="height: 40px;">
+
+</div>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
+<p>Can we derive the neural network architectures from mathematical properties we want it to satisfy, rather than solely relying on engineering intuition? And can such a construction help explain <em>why</em> certain architectures work so well?</p>
+<p>In this second CAIS newsletter, we explore these two questions through the lens of Geometric Deep Learning (GDL), a mathematical framework for understanding neural networks through the underlying structure of data. Our primary goal is to show how one of the most influential architectures in deep learning, the Convolutional Neural Network (CNN), can be mathematically derived from simpler geometric principles, and subsequentially explore what this tells us about the broader future of deep learning.</p>
+</section>
+<section id="real-world-data-has-structure" class="level2">
+<h2 class="anchored" data-anchor-id="real-world-data-has-structure">2. Real-world data has structure</h2>
+<p>There are <em>a lot</em> of deep learning architectures with more and more architectures being invented every week. Each are engineered for different tasks, with different advantages and properties. This vast quantity of architectures can make it extremely difficult to understand why they work and the relations between them.</p>
+<blockquote class="blockquote">
+<p>There is a veritable zoo of neural network architectures for various kinds of data, but few unifying principles. [1]</p>
+</blockquote>
+<p>In their proto-book [1], Bronstein et al.&nbsp;highlight this problem, but also offer a solution: A framework to systemize neural architectures and construct them from geometric regularities. They call it <em>Geometric deep learning</em> (GDL). The idea of GDL rests on an observation in deep learning that the data we care about in the real world isn’t just a collection of random numbers. Instead, it possesses structure, like symmetry, geometry, and other mathematical structures, because it originates from our physical world.</p>
+<p>The following is a very import example of this which we will come back to over and over again, so make sure it feels intuitive!</p>
+<p>Consider the task of imagine classification where we want to classify cats in images. A physical property could be as simple as recognizing that an object (like a cat in an image) remains the same object whether it is in the top-left corner or the bottom-right corner of the image. This is something that is intuitive for us humans, but not as intuitive for machine learning systems. In traditional deep learning, images are treated as flat grids of pixels, and while architectures like regular Multilayer Perceptrons (MLPs) doesn’t necessarily <em>fail</em> at recognizing a translated cat, it doesn’t enforce any particular relationship between recognizing a cat at one position and recognizing it at another. So it must learn this relationship from data, and so we need more data for this architecture to perform better.</p>
+<p>Now imagine a network that detects a particular feature of a cat, such as its ears. If we shift the entire image to the right, we would intuitively expect the network’s detection of those ears to shift to the right as well. The feature of an ear has not changed, only its location. This is the idea behind a geometric property called <em>translation equivariance</em>, which means that translating the input should translate the corresponding output feature maps in the same way. Notice that this is slightly different from what we described in the previous paragraph, and from what we ultimately want in image classification. The final prediction, “cat”, should remain unchanged by translation, a property called <em>translation invariance</em>. But within the network architecture, we want to preserve the location of detected features. This is why translation equivariance is such a useful architectural property, and as we will see, Convolutional Neural Networks (CNNs) are translation-equivariant, and can be derived from translation-equivariant layers.</p>
+<div id="fig-surfaces" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-surfaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/2-gdl/equiinv.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-surfaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: The left image shows translation-equivariance; if we translate a feature of a cat like its head, the corresponding model representation of it should translate in the same way. The right image shows translation-invariance; translating a cat should not affect the final prediction.
+</figcaption>
+</figure>
+</div>
+<p>In the framework of GDL, this explains why CNNs are so good at image tasks: They satisfy certain geometric regularities that is very natural to image data. In GDL, <em>regularities</em> refer to geometric properties that we already know are true about the data before the model even starts training. Translation invariance and translation equivariance are only two examples. Some other common regularities which we won’t dive into are rotation invariance/equivariance and permutation invariance/equivariance.</p>
+<p>Not only could this allow us to incorporate prior knowledge into neural networks, derive architectures from mathematical principles, and construct more efficient models, but in the long-term lead, it might lead to a shared mathematical framework to study architectures in. It could help explain why some architectures generalize better than others, and help us move deep learning closer to a physical science, rather than just a field of engineering.</p>
+</section>
+<section id="mathematical-foundations-of-gdl" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-foundations-of-gdl">3. Mathematical foundations of GDL</h2>
+<section id="data-domains-and-signals" class="level3">
+<h3 class="anchored" data-anchor-id="data-domains-and-signals">3.1 Data domains and signals</h3>
+<p>Since we want to embrace and utilize the structure within datasets, we want to move away from thinking of data as arbitrary vectors in Euclidean space <span class="math inline">\(\mathbb{R}^{d}\)</span>. Instead, we view data as <em>signals</em> <span class="math inline">\(x:\Omega\to{}\mathcal{C}\)</span>, defined over a <em>data domain</em> <span class="math inline">\(\Omega\)</span> and mapping into a <em>channel space</em> <span class="math inline">\(\mathcal{C}\)</span>. Some concrete examples are:</p>
+<ul>
+<li><strong>For images:</strong> <span class="math inline">\(\Omega=\mathbb{Z}^{2}\)</span>, describing a 2D grid, while <span class="math inline">\(\mathcal{C}=\mathbb{R}^{3}\)</span>, describing RGB values. So the signals <span class="math inline">\(x:\mathbb{Z}^{2}\to{}\mathbb{R}^{3}\)</span> describe a mapping where each pixel at <span class="math inline">\((i,j)\in{}\mathbb{Z}^{2}\)</span> receives three values <span class="math inline">\((R,G,B)\in{}\mathbb{R}^{3}\)</span>.
+<ul>
+<li><strong>Relevant tasks:</strong> Image classification, object detection.</li>
+<li><strong>Physical structure and priors:</strong> Translation, rotation.</li>
+</ul></li>
+<li><strong>For graphs:</strong> Let <span class="math inline">\(G=(V,E)\)</span> be a graph, consisting of vertices <span class="math inline">\(V\)</span> and edges <span class="math inline">\(E\)</span>. Then <span class="math inline">\(\Omega=V\)</span>, <span class="math inline">\(\mathcal{C}=\mathbb{R}^{d}\)</span>, and signals <span class="math inline">\(x:V\to{}\mathbb{R}^{d}\)</span> describe a mapping where each node <span class="math inline">\(n\in{}V\)</span> gets assigned a particular feature or value. For example, in a molecular graph, nodes could be atoms and edges chemical bonds, and signal could assign to each atom its charge, atomic number, mass number, and so on.
+<ul>
+<li><strong>Relevant tasks:</strong> Molecule generation, predicting whether a molecule possesses certain physical properties, social (user-user relation) recommendations, detecting span accounts.</li>
+<li><strong>Physical structure and priors:</strong> Locality, node permutation.</li>
+</ul></li>
+<li><strong>For manifolds:</strong> Let <span class="math inline">\(M\)</span> be a smooth two-dimensional surface. Then, <span class="math inline">\(\Omega=M\)</span>, <span class="math inline">\(\mathcal{C}=\mathbb{R}\)</span>, and signals <span class="math inline">\(x:M\to{}\mathbb{R}\)</span> describe a mapping where each point on the surface <span class="math inline">\(p\in{}M\)</span> gets assigned a scalar value (e.g., assigning a temperature on the surface of Earth, represented as a sphere <span class="math inline">\(M=S^{2}\)</span>).
+<ul>
+<li><strong>Relevant tasks:</strong> Weather prediction, protein folding.</li>
+<li><strong>Physical structure and priors:</strong> Locality, metric structure describing distances and curvature.</li>
+</ul></li>
+</ul>
+<p>So when we refer to “samples” or “data points” in GDL, we really mean mappings from the data domain to the channel space. The <em>dataset</em> will then be a set of signals, denoted: <span class="math display">\[\mathcal{X}(\Omega,\mathcal{C}):=\{ x:\Omega\to{}\mathcal{C} \}.\]</span> This is a way for us to represent data. However, the prior or physical structure comes not merely from the type of the signals, but from the structure we impose on their domain and from how the architecture respects that structure. All of these notions such as “imposing structure” and an architecture “respecting that structure” will be made precise soon.</p>
+<p>To give another example of what these geometric regularities might look like. Consider a task on graph data where we want to predict a molecule’s net charge. Our data domain is a graph where vertices are atoms and edges are chemical bonds between atoms. Every atom (or node in our graph) gets assigned a feature vector containing two chemical properties, namely its atomic number and electrical charge. To feed a molecule into a computer algorithm, we are forced to store the signals in matrices. Take a concrete molecule, like <span class="math inline">\(H_{2}O\)</span>, which has three atoms. In a matrix, we might index the two hydrogen atoms first, <em>or</em> the oxygen atom first (or another combination). However, matrix multiplication is not commutative, so for a naive MLP, we might get completely different predictions of properties depending on the ordering of the indexing when we store the atoms as signals in our matrix. This could correspond to absurd physical logic, where, say, a molecule is predicted to be toxic when read from left-to-right, and not toxic when read from right-to-left. Stepping back, we desire a regularity called <em>permutation invariance</em>, meaning that changing the order of the way in which we store the atoms, should not change the final prediction! This is a symmetry because the process of permuting the atoms shouldn’t change the prediction.</p>
+</section>
+<section id="group-theory-in-gdl" class="level3">
+<h3 class="anchored" data-anchor-id="group-theory-in-gdl">3.2 Group theory in GDL</h3>
+<p>We will now begin formalizing parts of the story we’ve told so far, and we will begin with the concept of “symmetry”. The regularities we have mentioned so far (like translation equivariance) has to do with the concept of <em>symmetry</em>. Symmetry refers to a certain transformation on an object, such that it leaves it unchanged.</p>
+<p>Now, the plan is to describe these symmetries in general, and then derive architectures from constraints that respect them. So how do we describe symmetries mathematically? We use groups, specifically, <em>symmetry groups</em>!</p>
+<p>A <em>group</em> is a set <span class="math inline">\(G\)</span> together with a binary relation <span class="math inline">\(*:G\times G\to{}G\)</span>, which we can denote as a structure <span class="math inline">\((G,*)\)</span>, such that: 1. For any two elements <span class="math inline">\(g,h\in{}G\)</span>, <span class="math inline">\(g*h\in{}G\)</span>. 2. <span class="math inline">\(*\)</span> is associative, meaning that for any <span class="math inline">\(g,h,f\in{}G\)</span>,<span class="math display">\[(g*h)*f=g*(h*f).\]</span> 3. There exists a special element <span class="math inline">\(e\in{}G\)</span>, called the <em>identity</em>, such that for any <span class="math inline">\(g\in{}G\)</span>,<span class="math display">\[g*e=e*g=g.\]</span> 4. For every element <span class="math inline">\(g\in{}G\)</span>, there exists an element <span class="math inline">\(g^{-1}\)</span>, called its <em>inverse</em>, such that<span class="math display">\[g^{-1}*g=g*g^{-1}=e.\]</span></p>
+<p>In our context, a <em>symmetry group</em> is a concrete group consisting of elements that are real-world transformations, acting on specific objects or mathematical spaces. The most intuitive examples is the symmetry group of an equilateral triangle, which consists of 6 transformations that correspond to 6 motions that map the triangle onto itself:</p>
+<div id="fig-surfaces" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-surfaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/2-gdl/symmetrygroup.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-surfaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Illustration of the 6 transformations of the specific symmetry group of a equilateral triangle.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="understanding-equivariance" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-equivariance">3.3 Understanding equivariance</h3>
+<p>Using our knowledge of groups we will now give a mathematically rigorous definition of both equivariance and invariance. Groups allow us to describe symmetries generally (whether it is translations, rotations, or permutations), and so we will define a notion of “group equivariance” and “group invariance”. Then, we will see how we derive the convolution operation used in CNNs purely from translation-equivariant linear maps.</p>
+<p>Recall our cat example from section 1. An image can be represented as a signal <span class="math inline">\(x:\Omega\to\mathcal C\)</span>, where <span class="math inline">\(\Omega=\mathbb Z^2\)</span> is a two-dimensional grid of pixel coordinates and <span class="math inline">\(\mathcal C=\mathbb R^3\)</span> represents the RGB values at each pixel. We want to describe the transformations that shift an image horizontally or vertically. These transformations form a specific group <span class="math inline">\(G=(\mathbb Z^2,+)\)</span>. An element <span class="math inline">\(g=(a,b)\in G\)</span> represents a translation by <span class="math inline">\(a\)</span> pixels horizontally and <span class="math inline">\(b\)</span> pixels vertically. The group operation is addition (performing two translations corresponds to adding their displacement vectors). The identity is <span class="math inline">\(e=(0,0)\)</span>, and every translation <span class="math inline">\(g=(a,b)\)</span> has an inverse <span class="math inline">\(g^{-1}=(-a,-b)\)</span> that moves the image back to its original position.</p>
+<p>Up until now, we haven’t actually formalized how this group transform an image. All we’ve done is defined the structure of the symmetry itself, not how that symmetry <em>acts</em> on the image data we’re interested in. For this, we introduce a <em>group action</em>. Informally, a group action describes how the elements of a group act as transformations on some space. In our case, we want to specify how translations act on images.</p>
+<p>We denote this action by <span class="math inline">\(\rho\)</span>, and define it as: <span class="math display">\[(\rho(t)x)(u)=x(u-t),  \]</span> where <span class="math inline">\(u\in\mathbb Z^2\)</span> is a pixel coordinate and <span class="math inline">\(x:\mathbb{Z}^{2}\rightarrow{}\mathbb{R}^{3}\)</span> is a signal.</p>
+<p>This simply says that, to obtain the pixel value at position <span class="math inline">\(u\)</span> in the translated image, we look at the original image at position <span class="math inline">\(u-t\)</span>. Consequently, the entire image shifts by <span class="math inline">\(t\)</span>.</p>
+<p>Let <span class="math inline">\(G\)</span> be a symmetry group. A function <span class="math inline">\(f:\mathcal{X}(\Omega,\mathcal{C})\rightarrow{}\mathcal{X}(\Omega,\mathcal{C})\)</span> is <em><span class="math inline">\(G\)</span>-equivariant</em> if <span class="math display">\[f(\rho(t)x)=\rho(t)f(x), \tag 1\]</span> for all <span class="math inline">\(t\in{}G\)</span>. <span class="math inline">\(f\)</span> is called <em><span class="math inline">\(G\)</span>-invariant</em> if instead <span class="math display">\[f(\rho(t)x)=f(x), \tag 2\]</span> for all <span class="math inline">\(t\in{}G\)</span>.</p>
+<p>When we refer to translation equivariance (resp. invariance) we mean the notion of equivariance (resp. invariance) as defined above, but where the group <span class="math inline">\(G\)</span> is the translation group <span class="math inline">\(G=(\mathbb Z^2,+)\)</span>.</p>
+<p>In words, equivariance says that transforming the input and then applying the network must produce the same result as applying the network first and then transforming its output. Invariance says that transforming the input and then applying the network must produce the same result as simply applying the network, without any transformation.</p>
+<p>When we say that a “model should respect the geometric regularity”, we are demanding that its architecture respects these sorts of conditions, such as (1) or (2). This brings us to the last central questions: <em>What kinds of neural network layers satisfy these constraints? And how do we construct architectures that satisfy them?</em></p>
+<p>As we will see, if we restrict ourselves to linear layers and require them to be translation equivariant, we arrive naturally at convolution layers. Then, we will compose multiple convolution layers, nonlinearities, and coarsening layers, and finally add a last invariant-map, which will give us the sort of architecture we initially desired in our cat example.</p>
+</section>
+</section>
+<section id="the-blueprint-of-gdl" class="level2">
+<h2 class="anchored" data-anchor-id="the-blueprint-of-gdl">4. The blueprint of GDL</h2>
+<p>There are four main building blocks of the GDL framework, and we summarize them in the table below:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 57%">
+<col style="width: 21%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Building block</th>
+<th>Mathematical role</th>
+<th>CNN interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linear equivariant map</td>
+<td>Extract information from nearby points while respecting symmetries</td>
+<td>Convolutional layers</td>
+</tr>
+<tr class="even">
+<td>Nonlinearity</td>
+<td>Increase expresiveness</td>
+<td>ReLU, Sigmoid</td>
+</tr>
+<tr class="odd">
+<td>Coarsening (local pooling)</td>
+<td>Construct a lower-resolution representation by combining nearby points</td>
+<td>Local average/max pooling</td>
+</tr>
+<tr class="even">
+<td>Global invariant map</td>
+<td>Produce an output unchanged by the chosen group action</td>
+<td>Global average/max pooling</td>
+</tr>
+</tbody>
+</table>
+<p>We will now break these four building blocks down.</p>
+<section id="linear-equivariant-map" class="level3">
+<h3 class="anchored" data-anchor-id="linear-equivariant-map">4.1 Linear Equivariant Map</h3>
+<p>Recall our cat example. If we translate the image, we want the detected features, such as the cat’s ears or its head, to translate in exactly the same way. This motivates constructing neural network layers that are equivariant to the transformations of our data.</p>
+<p>The first building block of GDL is therefore a <em>linear equivariant map</em>: a linear transformation <span class="math inline">\(B\)</span> that respects (See (1)) the action of a symmetry group (in our case, the actions of the translation group): <span class="math display">\[B(\rho(t)x)=\rho(t)B(x).\]</span> In the next section we will see that when we require a linear layer to be equivariant to translations, its mathematical structure is constrained to that of a discrete convolution.</p>
+</section>
+<section id="nonlinearity" class="level3">
+<h3 class="anchored" data-anchor-id="nonlinearity">4.2 Nonlinearity</h3>
+<p>Linear transformations alone are not sufficient to construct expressive neural networks. This is the same story that goes for any neural network; composing any number of linear transformations still produces a linear transformation, which in turn limits the kinds of functions the network can represent. We therefore introduce <em>nonlinear activation functions</em>, such as ReLU or sigmoid. We represent these as <span class="math inline">\(\boldsymbol\sigma:\mathcal{C}\rightarrow{}\mathcal{C}'\)</span>, applied element-wise: <span class="math display">\[(\boldsymbol \sigma (x))(u)=\sigma(x(u)).\]</span> Importantly, these nonlinearities preserve translation equivariance. Thus, we can introduce nonlinearity (which drastically improves the expressiveness of our network) without sacrificing the equivariance constraint we imposed on our architecture. For a quick proof of this, see below: <span class="math display">\[\begin{align}
+(\boldsymbol\sigma(\rho(t)x))(u)&amp;=\sigma((\rho(t)x)(u)) \\
+&amp;=\sigma(x(u-t)) \\
+&amp;=(\boldsymbol\sigma (x))(u-t) \\
+&amp;=(\rho(t)\boldsymbol\sigma (x))(u),
+\end{align}\]</span> hence, we get that <span class="math inline">\(\boldsymbol\sigma\)</span> is <span class="math inline">\(G\)</span>-equivariant: <span class="math display">\[\boldsymbol\sigma \circ{}\rho(t)=\rho(t)\circ{}\boldsymbol\sigma.\]</span></p>
+</section>
+<section id="coarsening" class="level3">
+<h3 class="anchored" data-anchor-id="coarsening">4.3 Coarsening</h3>
+<p>The idea of the coarsening is to construct a new, lower-dimensional domain <span class="math inline">\(\Omega'\)</span> that represents the original domain at a coarser resolution. Formally, it takes the form <span class="math inline">\(P:\mathcal{X}(\Omega,\mathcal{C})\rightarrow{}\mathcal{X}(\Omega',\mathcal{C})\)</span> where <span class="math inline">\(\Omega'\)</span> is the coarsened domain. The average pooling layers in CNNs are examples of coarsening operators. Let <span class="math inline">\(B_{w}\subseteq{}\Omega\)</span> denote the neighborhood associated with a coarse-grid position <span class="math inline">\(w\in{}\Omega'\)</span>, and define average pooling by: <span class="math display">\[P(x)(w)=\frac{1}{|B_{w}|}\sum_{u\in{}B_{w}}x(u).\]</span></p>
+<div id="fig-surfaces" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-surfaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="../assets/2-gdl/pooling.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-surfaces-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: An illustration of an average pooling layer.
+</figcaption>
+</figure>
+</div>
+<p>But why should we desire coarsening anyways? The reason for this is quite intuitive! Suppose we want to classify cats in images again. At the finest scale, we observe individual pixels. But at coarser scales, we observe edges, textures, shapes, and arrangements of features like ears, paws, noses, and so on. The key observation here is that many real-world tasks possess structure at multiple spatial scales. Rather than processing all information globally at once, we can exploit this by constructing local features and progressively combining them into coarser representations. In other words, not every tiny local variation is usually essential to the prediction. For example, a small change in a cat’s fur texture might leave the correct class unchanged. This suggests that useful information may be represented at multiple resolutions, with some fine-scale details discarded as we move toward coarser scales.</p>
+<p>This idea is captured in another geometric regularity used in GDL, which is referred to as <em>scale separation</em>. Formally, if <span class="math inline">\(P_{j}:\mathcal{X}(\Omega)\rightarrow{}\mathcal{X}_{j}(\Omega_{j})\)</span> is a coarsening operator, and <span class="math inline">\(f\)</span> is our network, then we assume <span class="math display">\[f \approx f_{j}\circ{}P_{j},\]</span> where <span class="math inline">\(f_{j}\)</span> is a function operating on the coarser domain. Intuitively, this means we can approximately perform the original task using the coarsened representation <span class="math inline">\(P_{j}(x)\)</span> instead of the original high-resolution signal <span class="math inline">\(x\)</span>. Note that this is an assumption about the structure of the task. It makes sense for our cat example. However, another task requiring the exact value of one particular pixel might not benefit at all from scale separation.</p>
+</section>
+<section id="global-pooling" class="level3">
+<h3 class="anchored" data-anchor-id="global-pooling">4.4 Global Pooling</h3>
+<p>Returning once again to our cat example, recall the distinction between equivariance and invariance. Within the network, we want detected features to move when the input image moves. However, the final prediction should remain unchanged: a cat is still a cat regardless of where it appears in the image. This is precisely the role of the last ingredient we need: A final <em>global pooling</em> layer.</p>
+<p>Suppose one of our final feature maps indicates where the network has detected a particular feature of the cat. By having imposed translation equivariance (from section 4.1), translating the image will also translate the positions where this feature is detected. But if we aggregate the feature values across the <em>entire</em> data domain, their locations no longer matter. The resulting representation can therefore be translation-invariant!</p>
+<p>Unlike local pooling, global pooling is constructed such that it produces a representation that no longer depends on the spatial position of a feature. Suppose our final convolutional layer produces a feature map <span class="math inline">\(h:\Omega\to\mathbb R^C\)</span> where each spatial position has a vector of <span class="math inline">\(C\)</span> learned features. One example of a global pooling layer would be the global average, which computes: <span class="math display">\[A(h)=\frac{1}{|\Omega|}\sum_{u\in{}\Omega}h(u).\]</span> The result is a single vector in <span class="math inline">\(\mathbb{R}^{C}\)</span>, rather than a spatial feature map. Now, recall our translation group <span class="math inline">\((\mathbb{Z}_{2},+)\)</span> with action <span class="math inline">\(\rho\)</span>. Then: <span class="math display">\[\begin{align}
+A(\rho(t)h)&amp;=\frac{1}{|\Omega|}\sum_{u\in{}\Omega} h(u-t) \\
+&amp;= \frac{1}{|\Omega|}\sum_{u\in{}\Omega}h(u) \\
+&amp;=A(h).
+\end{align}\]</span> This is exactly the invariance condition in (2)! The second equality follows from the fact that translations change the positions of feature values, but not the values themselves, so it doesn’t affect the global average. Thus, global pooling turns a translation-equivariant feature representation into a translation-invariant output, which is exactly what we wanted for the cat-classification problem (recall image 1)!</p>
+<p>There is one technical remark. The expression for <span class="math inline">\(A(h)\)</span> is typically not defined for <span class="math inline">\(\Omega=\mathbb{Z}^{2}\)</span> since this set is infinite. To overcome this we use a finite periodic grid, such as <span class="math inline">\(\Omega=\mathbb Z_H\times\mathbb Z_W\)</span>, with translations interpreted periodically. But the mathematical representation is the same. For more details, see section 4.2 of [1].</p>
+<p>So global pooling allows us to move from equivariant representations, which preserve spatial information, to invariant representations, which discard positional information when it is no longer needed for the task.</p>
+</section>
+<section id="the-general-blueprint-of-gdl" class="level3">
+<h3 class="anchored" data-anchor-id="the-general-blueprint-of-gdl">4.5 The general blueprint of GDL</h3>
+<p>Putting these building blocks together, we have a sort of “blueprint” for deriving deep learning architectures that satisfy geometric regularities. In the context of our cat example:</p>
+<ol start="0" type="1">
+<li>Start with an input image <span class="math inline">\(x:\Omega \rightarrow{}\mathbb{R}^{3}\)</span>.</li>
+<li>Apply a local equivariant layer <span class="math inline">\(B\)</span>, followed up by a nonlinearity <span class="math inline">\(\boldsymbol\sigma\)</span>. This step extracts local features in a way that respects the symmetry we impose.</li>
+<li>(optional) Combine nearby information via a coarsening operator (local average pooling) on a smaller domain.</li>
+<li>Repeat local equivariant operations with nonlinearities, and optionally coarsenings.</li>
+<li>Finally, aggregate features into a position-independent representation, via a global invariant map <span class="math inline">\(A\)</span> (global average map).</li>
+</ol>
+<p>Note that from step 3, we keep composing local equivariant layers followed up by nonlinearities. But so far, we only know that each are equivariant separately, but is their composition also equivariant? That is, we know <span class="math inline">\(B\)</span> is equivariant by definition, and we’ve proven that <span class="math inline">\(\boldsymbol\sigma\)</span> is equivariant in section 4.2, but is <span class="math inline">\(\boldsymbol \sigma \circ{} B\)</span> also equivariant then? We verify that this is indeed the case, and this is our last technical detail for this section: <span class="math display">\[\begin{align}
+(\boldsymbol\sigma\circ{}B)(\rho(t)x)&amp;=\boldsymbol\sigma(B(\rho(t)x))  \\
+&amp;=\boldsymbol\sigma(\rho(t)B(x)) &amp;\text{(equivariance of }B\text{)}\\
+&amp;=\rho(t)\boldsymbol\sigma(B(x)) &amp;\text{(equivariance of }\rho\text{)}\\
+&amp;=\rho(t)(\boldsymbol\sigma \circ{}B)(x)
+\end{align}\]</span> This is why we can construct <em>deep</em> nonlinear networks that remain translation-equivariant by design. We can alternate convolutions and pointwise nonlinearities, gaining expressive power while preserving the equivariance constraints, which is a wonderful thing to have!</p>
+<p>In all its generality, independent of task, data domain, or group, the <em>Geometric Deep Learning Blueprint</em> is formulated as follows: Let <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(\Omega'\)</span> be domains, <span class="math inline">\(G\)</span> a symmetry group over <span class="math inline">\(\Omega\)</span>, and write <span class="math inline">\(\Omega' \subseteq \Omega\)</span> if <span class="math inline">\(\Omega'\)</span> can be considered a compact version of <span class="math inline">\(\Omega\)</span>. Then we have the following building blocks:</p>
+<ol type="1">
+<li>Linear <span class="math inline">\(G\)</span>-equivariant layer <span class="math inline">\(B :\mathcal X( \Omega, \mathcal C)\to \mathcal X ( \Omega ' , \mathcal C')\)</span> satisfying <span class="math inline">\(B(g\cdot x)=g\cdot B(x)\)</span> for all <span class="math inline">\(g\in G\)</span> and <span class="math inline">\(x\in \mathcal X(\Omega, \mathcal C)\)</span>.</li>
+<li>Nonlinearity <span class="math inline">\(\sigma:\mathcal C \to \mathcal C'\)</span> applied element-wise as <span class="math inline">\((\boldsymbol \sigma(x))(u)=\sigma(x(u))\)</span>.</li>
+<li>Local pooling (coarsening) <span class="math inline">\(P:\mathcal X( \Omega, \mathcal C)\to \mathcal X(\Omega' ,\mathcal C)\)</span>, such that <span class="math inline">\(\Omega' \subseteq \Omega\)</span>.</li>
+<li><span class="math inline">\(G\)</span>-invariant layer (global pooling) <span class="math inline">\(A:\mathcal X(\Omega, \mathcal C)\to \mathcal Y\)</span> satisfying <span class="math inline">\(A(g\cdot x)=A(x)\)</span> for all <span class="math inline">\(g\in G\)</span> and <span class="math inline">\(x\in X(\Omega, \mathcal C)\)</span>.</li>
+</ol>
+<p>Using these blocks allows constructing <span class="math inline">\(G\)</span>-invariant functions <span class="math inline">\(f:\mathcal X(\Omega, \mathcal C)\to \mathcal Y\)</span> of the form <span class="math display">\[f=A\circ \boldsymbol \sigma_J \circ B_j \circ P_{J-1}\circ \dots \circ P_1\circ \boldsymbol \sigma_1 \circ B_1,\]</span> where the blocks are selected such that the output space of each block matches the input space of the next one. Here we assume the intermediate operators like local pooling layers also preserve the relevant equivariance constraints. Different blocks may exploit different choices of symmetry groups <span class="math inline">\(G\)</span>.</p>
+</section>
+</section>
+<section id="deriving-convolutional-neural-networks-from-translation-equivariance" class="level2">
+<h2 class="anchored" data-anchor-id="deriving-convolutional-neural-networks-from-translation-equivariance">5. Deriving Convolutional Neural Networks from Translation Equivariance</h2>
+<p>We now have all the mathematical tools necessary to return to our original question: Can we derive the architecture of a neural network from the geometric properties we want it to satisfy?</p>
+<p>Recall that we represented images as signals on a two-dimensional grid <span class="math inline">\(\Omega=\mathbb Z^2\)</span>, and established that we want our intermediate layers to be translation equivariant. But what does this requirement actually tell us about how the layers themselves must be constructed?</p>
+<p>Rather than starting with a convolutional layer and verifying that it is equivariant, we will start with an arbitrary linear layer, impose translation equivariance, and investigate what this forces! As we will see, this leads directly to convolution, and provides a principled explanation for one of the defining operations of CNNs.</p>
+<section id="convolution-emerges-from-translation-symmetry" class="level3">
+<h3 class="anchored" data-anchor-id="convolution-emerges-from-translation-symmetry">5.1 Convolution emerges from translation symmetry</h3>
+<p>Consider a linear layer <span class="math inline">\(B\)</span>, which can be written in terms of weights <span class="math inline">\(W(u,v)\)</span> as follows: <span class="math display">\[(Bx)(u)=\sum_{v\in{}\mathbb{Z}^{2}}W(u,v)x(v),\]</span> where <span class="math inline">\(v\)</span> is an input pixel position, <span class="math inline">\(u\)</span> is an output pixel position, and <span class="math inline">\(W(u,v)\)</span> is the weight connecting input position <span class="math inline">\(v\)</span> to output position <span class="math inline">\(u\)</span>. At this point, the weights are completely unconstrained. But from our GDL blueprint, we want <span class="math inline">\(B\)</span> to respect our translation symmetry, meaning we want <span class="math inline">\(B\)</span> to be translation equivariant. This meant that: <span class="math display">\[B\circ{}\rho(t)=\rho(t)\circ{}B\iff B(\rho(t)x)=\rho(t)(Bx).\tag 3\]</span> We now want to understand what this symmetry constraint tells us about the structure of our weights. Unpacking the left-hand side of (3), we get: <span class="math display">\[(B(\rho(t)x))(u)=\sum_{v\in{}\mathbb{Z}^{2}}W(u,v)(\rho(t)x)(v)=\sum_{v\in{}\mathbb{Z}^{2}}W(u,v)x(v-t).\]</span> Unpacking the right-hand side of (3), we get: <span class="math display">\[(\rho(t)(Bx))(u)=(Bx)(u-t)=\sum_{v\in{}\mathbb{Z}^{2}}W(u-t,v)x(v).\]</span> Therefore, equivariance tells us that: <span class="math display">\[\sum_{v\in{}\mathbb{Z}^{2}}W(u,v)x(v-t)=\sum_{v\in{}\mathbb{Z}^{2}}W(u-t,v)x(v).\]</span> Because we want both sides to have <span class="math inline">\(x\)</span> evaluated at the same index so that we can compare the weights, we now make a reindexing of the sum in the left-hand side using <span class="math inline">\(w:=v-t\)</span> (so <span class="math inline">\(v=w+t\)</span>), which doesn’t change the sum. Thus, we get: <span class="math display">\[\sum_{w\in{}\mathbb{Z}^{2}}W(u,w+t)x(w)=\sum_{w\in{}\mathbb{Z}^{2}}W(u-t,w)x(w).\]</span> Consequently, <span class="math display">\[W(u,w+t)=W(u-t,w),\]</span> and finally, we substitute <span class="math inline">\(u\)</span> by <span class="math inline">\(u+t\)</span> to get: <span class="math display">\[W(u+t,w+t)=W(u,w).\tag 4\]</span></p>
+<p>You might know about <em>weight-sharing</em>, which traditionally is said to be a “design technique” in machine learning that forces layers to share parameters (such as weights). Equation (4) <em>is</em> weight-sharing, but it is no longer an arbitrary design principle, but a genuine consequence of translation equivariance! This already hints at the explanatory power of GDL.</p>
+<p>Equation (4) says that if we want our linear layers <span class="math inline">\(B\)</span> to be equivariant to translations, then moving the input and output positions by the same displacement must not change the weight connecting them.</p>
+<p>From (4), choose the particular translation <span class="math inline">\(t=-w\)</span>. Then, <span class="math display">\[W(u-w,0)=W(u,w).\tag 5\]</span> This translates both positions so that the input position becomes the origin <span class="math inline">\(0=(0,0)\)</span>. Because equivariance tells us that the weight is unchanged by simultaneous translation, every weight can be recovered by looking at weights whose input position is the origin. This is how we define the <em>kernel</em> <span class="math inline">\(k(s)\)</span>, which is the weight connecting the input at the origin to the output at a displacement <span class="math inline">\(s\)</span>: <span class="math display">\[k(s):=W(s,0)\]</span> The symmetry constraint has allowed us to replace a function of two positions <span class="math inline">\(W:\mathbb{Z}^{2}\times \mathbb{Z}^{2}\rightarrow{}\mathbb{R}\)</span> with a function of one relative displacement <span class="math inline">\(k:\mathbb{Z}^{2}\rightarrow{}\mathbb{R}\)</span>! Using (5) and the definition of <span class="math inline">\(k(s)\)</span>, <span class="math display">\[W(u,w)=k(u-w)\]</span> Substituting this into our original linear layer <span class="math inline">\(B\)</span>: <span class="math display">\[(Bx)(u)=\sum_{v\in{}\mathbb{Z}^{2}}W(u,v)x(v)=\sum_{v\in{}\mathbb{Z}^{2}}k(u-v)x(v)=(k*x)(u). \tag 6\]</span> This is exactly the definition of the (discrete) convolution operation from which convolutional layers literally get their name from!</p>
+<p>We have now derived convolution directly from linearity and translation equivariance. If you want to learn more about the convolution operation itself, which would give a higher appreciation for what we have just done, see [2].</p>
+</section>
+<section id="deriving-the-traditional-cnn-architecture" class="level3">
+<h3 class="anchored" data-anchor-id="deriving-the-traditional-cnn-architecture">5.2 Deriving the traditional CNN architecture</h3>
+<p>In the previous section we showed that linearity and translation equivariance force a layer to take the form of a convolution. But so far, we have only derived a single linear operator. How can we use this result to construct an entire neural network architecture? Using our blueprint at the beginning of section 4.2, we are only done with step 0 and step 1 at this point. But before we continue with step 2, we need to discuss two technical details.</p>
+<p>In the derivation of (6), we used scalar-valued signals <span class="math inline">\(x:\mathbb{Z}^{2}\rightarrow{}\mathbb{R}\)</span>, but our original cat example involves RGB images <span class="math inline">\(x:\mathbb{Z}^{2}\rightarrow{}\mathbb{R}^{3}\)</span>. So first, we generalize slightly: Suppose an input image has <span class="math inline">\(3\)</span> channels and the output has <span class="math inline">\(N\)</span> channels, then each output channel <span class="math inline">\(j\)</span> can be calculated by: <span class="math display">\[(Bx)_{j}(u)=\sum_{c=1}^{3}\sum_{s \in{}K}k_{jc}(s)x_{c}(u-s),\]</span> where <span class="math inline">\(k_{jc}\)</span> is the kernel connecting input channel <span class="math inline">\(c\)</span> with output channel <span class="math inline">\(j\)</span>.</p>
+<p>Another technicality is that translation equivariance alone does not force the kernel to be local. The function <span class="math inline">\(k\)</span> as constructed in section 5.1 could assign nonzero weights to arbitrarily large displacements. To obtain the usual CNN filters, such as a standard <span class="math inline">\(3\times3\)</span> kernel, we impose <em>locality</em>. We say that <span class="math inline">\(k(s)=0\)</span> whenever <span class="math inline">\(s\not\in K\)</span>, where <span class="math inline">\(K\subseteq{}\mathbb{Z}^{2}\)</span> is a small neighborhood around the origin.</p>
+<p>Now, we assemble our CNN! Let <span class="math inline">\(h^{(0)}=x\)</span> denote the input signal. We construct feature maps using: <span class="math display">\[h^{(l+1)}=\sigma_{l}(B_{l}h^{(l)}),\]</span> where <span class="math inline">\(B_{l}\)</span> is our convolution operator, <span class="math inline">\(\sigma_{l}\)</span> is our nonlinearity, and <span class="math inline">\(l\)</span> is an index denoting the layer of our network. We’ve already proven that both operators are translation equivariant (See section 4.2) and that their composition is also translation equivariant (See section 4.5). Thus, <span class="math inline">\(h^{(l+1)}\)</span> is also translation equivariant. This was step 2 in the blueprint.</p>
+<p>We can also insert intermediate coarsenings <span class="math inline">\(P_{l}\)</span>, giving instead: <span class="math display">\[h^{(l+1)}=P_{l}(B_{l}(h^{(l)})).\]</span> However, this might not always preserve equivariance. Coarsening may preserve only a subgroup of translations, or an appropriate weaker equivariance property.</p>
+<p>We are now at the last step of our blueprint! Suppose we now have constructed several equivariant convolutional layers, giving an overall architecture <span class="math display">\[E=\boldsymbol{\sigma}_{l}\circ{}B_{l}\circ{}\dots \circ{}\boldsymbol{\sigma}_{2}\circ{}B_{2}\circ{}\boldsymbol{\sigma}_{1}\circ{}B_{1}.\]</span> We know <span class="math inline">\(E\)</span> is translation-equivariant. But by step 4, we require an invariant predictor, and so we require a translation-invariant global pooling layer. We already know global average pooling <span class="math inline">\(A\)</span> is translation-invariant (See section 4.4), and so our final CNN model is: <span class="math display">\[f_{\text{CNN}}=A\circ{}E.\]</span> We’ve now constructed a translation-invariant image classifier from translation-equivariant convolutional layers!</p>
+</section>
+</section>
+<section id="conclusions-and-final-reflections" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions-and-final-reflections">6. Conclusions and final reflections</h2>
+<p>We began this newsletter by asking whether we can derive neural architectures from mathematical constraints, and whether doing so can explain <em>why</em> they work. We have now given an answer of the first question: by requiring linearity and translation equivariance, we derived convolution, and from there constructed the familiar CNN architecture using the GDL blueprint. But the second question is maybe the more interesting one, and remains much more mysterious.</p>
+<p>Building a CNN in PyTorch is certainly easier than deriving one mathematically like we did here. Yet, there is something fundamentally different about these two approaches. Much of modern deep learning has been shaped by empirical discoveries and engineering principles. We have found effective architectures often before fully understanding why they work, when they generalize, how they relate to other architectures, and when one architecture is preferable to another. We have not answered all of these questions, but we have shown how GDL offers something important. An explanation for why convolution and weight sharing are natural choices for data with translation symmetry.</p>
+<p>GDL offers a method for how we might move beyond simply discovering architectures that work, toward understanding the mathematics that make them work. It is not a complete theory of modern deep learning, but a useful step toward one.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>[1] Bronstein, M. M., Bruna, J., Cohen, T., &amp; Veličković, P. (2021). <em>Geometric deep learning: Grids, groups, graphs, geodesics, and gauges</em> <a href="https://arxiv.org/abs/2104.13478">arXiv preprint arXiv:2104.13478</a>.</p>
+<p>[2] 3Blue1Brown (2022, November 18). <em>But what is a convolution?</em> YouTube. <a href="https://www.youtube.com/watch?v=KuXjwB4LzSA&amp;t=366s">URL</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/CAIS-RnD\.github\.io\/ai-news\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
