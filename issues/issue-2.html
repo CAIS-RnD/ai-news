@@ -47,7 +47,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b626d73c4c936ccc3cb08be7d45d1df6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-affc8120a87045c5dd59519a15182684.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-df0aa66905e50e8231be59aaccd1175b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -182,7 +182,7 @@ window.Quarto = {
 <div class="quarto-title">
 <h1 class="title">AI Newsletter #02 – Geometric Deep Learning</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Geometric Deep Learning"</div>
+    <div class="quarto-category">Geometric Deep Learning</div>
     <div class="quarto-category">Convolutional Neural Networks</div>
     <div class="quarto-category">Equivariant Deep Learning</div>
   </div>
@@ -274,7 +274,13 @@ Figure&nbsp;1: The left image shows translation-equivariance; if we translate a 
 <h3 class="anchored" data-anchor-id="group-theory-in-gdl">3.2 Group theory in GDL</h3>
 <p>We will now begin formalizing parts of the story we’ve told so far, and we will begin with the concept of “symmetry”. The regularities we have mentioned so far (like translation equivariance) has to do with the concept of <em>symmetry</em>. Symmetry refers to a certain transformation on an object, such that it leaves it unchanged.</p>
 <p>Now, the plan is to describe these symmetries in general, and then derive architectures from constraints that respect them. So how do we describe symmetries mathematically? We use groups, specifically, <em>symmetry groups</em>!</p>
-<p>A <em>group</em> is a set <span class="math inline">\(G\)</span> together with a binary relation <span class="math inline">\(*:G\times G\to{}G\)</span>, which we can denote as a structure <span class="math inline">\((G,*)\)</span>, such that: 1. For any two elements <span class="math inline">\(g,h\in{}G\)</span>, <span class="math inline">\(g*h\in{}G\)</span>. 2. <span class="math inline">\(*\)</span> is associative, meaning that for any <span class="math inline">\(g,h,f\in{}G\)</span>,<span class="math display">\[(g*h)*f=g*(h*f).\]</span> 3. There exists a special element <span class="math inline">\(e\in{}G\)</span>, called the <em>identity</em>, such that for any <span class="math inline">\(g\in{}G\)</span>,<span class="math display">\[g*e=e*g=g.\]</span> 4. For every element <span class="math inline">\(g\in{}G\)</span>, there exists an element <span class="math inline">\(g^{-1}\)</span>, called its <em>inverse</em>, such that<span class="math display">\[g^{-1}*g=g*g^{-1}=e.\]</span></p>
+<p>A <em>group</em> is a set <span class="math inline">\(G\)</span> together with a binary relation <span class="math inline">\(*:G\times G\to{}G\)</span>, which we can denote as a structure <span class="math inline">\((G,*)\)</span>, such that:</p>
+<ol type="1">
+<li>For any two elements <span class="math inline">\(g,h\in{}G\)</span>, <span class="math inline">\(g*h\in{}G\)</span>.</li>
+<li><span class="math inline">\(*\)</span> is associative, meaning that for any <span class="math inline">\(g,h,f\in{}G\)</span>,<span class="math display">\[(g*h)*f=g*(h*f).\]</span></li>
+<li>There exists a special element <span class="math inline">\(e\in{}G\)</span>, called the <em>identity</em>, such that for any <span class="math inline">\(g\in{}G\)</span>,<span class="math display">\[g*e=e*g=g.\]</span></li>
+<li>For every element <span class="math inline">\(g\in{}G\)</span>, there exists an element <span class="math inline">\(g^{-1}\)</span>, called its <em>inverse</em>, such that<span class="math display">\[g^{-1}*g=g*g^{-1}=e.\]</span></li>
+</ol>
 <p>In our context, a <em>symmetry group</em> is a concrete group consisting of elements that are real-world transformations, acting on specific objects or mathematical spaces. The most intuitive examples is the symmetry group of an equilateral triangle, which consists of 6 transformations that correspond to 6 motions that map the triangle onto itself:</p>
 <div id="fig-surfaces" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
@@ -348,12 +354,16 @@ Figure&nbsp;2: Illustration of the 6 transformations of the specific symmetry gr
 </section>
 <section id="nonlinearity" class="level3">
 <h3 class="anchored" data-anchor-id="nonlinearity">4.2 Nonlinearity</h3>
-<p>Linear transformations alone are not sufficient to construct expressive neural networks. This is the same story that goes for any neural network; composing any number of linear transformations still produces a linear transformation, which in turn limits the kinds of functions the network can represent. We therefore introduce <em>nonlinear activation functions</em>, such as ReLU or sigmoid. We represent these as <span class="math inline">\(\boldsymbol\sigma:\mathcal{C}\rightarrow{}\mathcal{C}'\)</span>, applied element-wise: <span class="math display">\[(\boldsymbol \sigma (x))(u)=\sigma(x(u)).\]</span> Importantly, these nonlinearities preserve translation equivariance. Thus, we can introduce nonlinearity (which drastically improves the expressiveness of our network) without sacrificing the equivariance constraint we imposed on our architecture. For a quick proof of this, see below: <span class="math display">\[\begin{align}
+<p>Linear transformations alone are not sufficient to construct expressive neural networks. This is the same story that goes for any neural network; composing any number of linear transformations still produces a linear transformation, which in turn limits the kinds of functions the network can represent. We therefore introduce <em>nonlinear activation functions</em>, such as ReLU or sigmoid. We represent these as <span class="math inline">\(\boldsymbol\sigma:\mathcal{C}\rightarrow{}\mathcal{C}'\)</span>, applied element-wise: <span class="math display">\[(\boldsymbol \sigma (x))(u)=\sigma(x(u)).\]</span> Importantly, these nonlinearities preserve translation equivariance. Thus, we can introduce nonlinearity (which drastically improves the expressiveness of our network) without sacrificing the equivariance constraint we imposed on our architecture. For a quick proof of this, see below:</p>
+<p><span class="math display">\[
+\begin{align}
 (\boldsymbol\sigma(\rho(t)x))(u)&amp;=\sigma((\rho(t)x)(u)) \\
 &amp;=\sigma(x(u-t)) \\
 &amp;=(\boldsymbol\sigma (x))(u-t) \\
 &amp;=(\rho(t)\boldsymbol\sigma (x))(u),
-\end{align}\]</span> hence, we get that <span class="math inline">\(\boldsymbol\sigma\)</span> is <span class="math inline">\(G\)</span>-equivariant: <span class="math display">\[\boldsymbol\sigma \circ{}\rho(t)=\rho(t)\circ{}\boldsymbol\sigma.\]</span></p>
+\end{align}
+\]</span></p>
+<p>hence, we get that <span class="math inline">\(\boldsymbol\sigma\)</span> is <span class="math inline">\(G\)</span>-equivariant: <span class="math display">\[\boldsymbol\sigma \circ{}\rho(t)=\rho(t)\circ{}\boldsymbol\sigma.\]</span></p>
 </section>
 <section id="coarsening" class="level3">
 <h3 class="anchored" data-anchor-id="coarsening">4.3 Coarsening</h3>
@@ -375,11 +385,15 @@ Figure&nbsp;3: An illustration of an average pooling layer.
 <h3 class="anchored" data-anchor-id="global-pooling">4.4 Global Pooling</h3>
 <p>Returning once again to our cat example, recall the distinction between equivariance and invariance. Within the network, we want detected features to move when the input image moves. However, the final prediction should remain unchanged: a cat is still a cat regardless of where it appears in the image. This is precisely the role of the last ingredient we need: A final <em>global pooling</em> layer.</p>
 <p>Suppose one of our final feature maps indicates where the network has detected a particular feature of the cat. By having imposed translation equivariance (from section 4.1), translating the image will also translate the positions where this feature is detected. But if we aggregate the feature values across the <em>entire</em> data domain, their locations no longer matter. The resulting representation can therefore be translation-invariant!</p>
-<p>Unlike local pooling, global pooling is constructed such that it produces a representation that no longer depends on the spatial position of a feature. Suppose our final convolutional layer produces a feature map <span class="math inline">\(h:\Omega\to\mathbb R^C\)</span> where each spatial position has a vector of <span class="math inline">\(C\)</span> learned features. One example of a global pooling layer would be the global average, which computes: <span class="math display">\[A(h)=\frac{1}{|\Omega|}\sum_{u\in{}\Omega}h(u).\]</span> The result is a single vector in <span class="math inline">\(\mathbb{R}^{C}\)</span>, rather than a spatial feature map. Now, recall our translation group <span class="math inline">\((\mathbb{Z}_{2},+)\)</span> with action <span class="math inline">\(\rho\)</span>. Then: <span class="math display">\[\begin{align}
+<p>Unlike local pooling, global pooling is constructed such that it produces a representation that no longer depends on the spatial position of a feature. Suppose our final convolutional layer produces a feature map <span class="math inline">\(h:\Omega\to\mathbb R^C\)</span> where each spatial position has a vector of <span class="math inline">\(C\)</span> learned features. One example of a global pooling layer would be the global average, which computes: <span class="math display">\[A(h)=\frac{1}{|\Omega|}\sum_{u\in{}\Omega}h(u).\]</span> The result is a single vector in <span class="math inline">\(\mathbb{R}^{C}\)</span>, rather than a spatial feature map. Now, recall our translation group <span class="math inline">\((\mathbb{Z}_{2},+)\)</span> with action <span class="math inline">\(\rho\)</span>. Then:</p>
+<p><span class="math display">\[
+\begin{align}
 A(\rho(t)h)&amp;=\frac{1}{|\Omega|}\sum_{u\in{}\Omega} h(u-t) \\
 &amp;= \frac{1}{|\Omega|}\sum_{u\in{}\Omega}h(u) \\
 &amp;=A(h).
-\end{align}\]</span> This is exactly the invariance condition in (2)! The second equality follows from the fact that translations change the positions of feature values, but not the values themselves, so it doesn’t affect the global average. Thus, global pooling turns a translation-equivariant feature representation into a translation-invariant output, which is exactly what we wanted for the cat-classification problem (recall image 1)!</p>
+\end{align}
+\]</span></p>
+<p>This is exactly the invariance condition in (2)! The second equality follows from the fact that translations change the positions of feature values, but not the values themselves, so it doesn’t affect the global average. Thus, global pooling turns a translation-equivariant feature representation into a translation-invariant output, which is exactly what we wanted for the cat-classification problem (recall image 1)!</p>
 <p>There is one technical remark. The expression for <span class="math inline">\(A(h)\)</span> is typically not defined for <span class="math inline">\(\Omega=\mathbb{Z}^{2}\)</span> since this set is infinite. To overcome this we use a finite periodic grid, such as <span class="math inline">\(\Omega=\mathbb Z_H\times\mathbb Z_W\)</span>, with translations interpreted periodically. But the mathematical representation is the same. For more details, see section 4.2 of [1].</p>
 <p>So global pooling allows us to move from equivariant representations, which preserve spatial information, to invariant representations, which discard positional information when it is no longer needed for the task.</p>
 </section>
@@ -393,12 +407,16 @@ A(\rho(t)h)&amp;=\frac{1}{|\Omega|}\sum_{u\in{}\Omega} h(u-t) \\
 <li>Repeat local equivariant operations with nonlinearities, and optionally coarsenings.</li>
 <li>Finally, aggregate features into a position-independent representation, via a global invariant map <span class="math inline">\(A\)</span> (global average map).</li>
 </ol>
-<p>Note that from step 3, we keep composing local equivariant layers followed up by nonlinearities. But so far, we only know that each are equivariant separately, but is their composition also equivariant? That is, we know <span class="math inline">\(B\)</span> is equivariant by definition, and we’ve proven that <span class="math inline">\(\boldsymbol\sigma\)</span> is equivariant in section 4.2, but is <span class="math inline">\(\boldsymbol \sigma \circ{} B\)</span> also equivariant then? We verify that this is indeed the case, and this is our last technical detail for this section: <span class="math display">\[\begin{align}
+<p>Note that from step 3, we keep composing local equivariant layers followed up by nonlinearities. But so far, we only know that each are equivariant separately, but is their composition also equivariant? That is, we know <span class="math inline">\(B\)</span> is equivariant by definition, and we’ve proven that <span class="math inline">\(\boldsymbol\sigma\)</span> is equivariant in section 4.2, but is <span class="math inline">\(\boldsymbol \sigma \circ{} B\)</span> also equivariant then? We verify that this is indeed the case, and this is our last technical detail for this section:</p>
+<p><span class="math display">\[
+\begin{align}
 (\boldsymbol\sigma\circ{}B)(\rho(t)x)&amp;=\boldsymbol\sigma(B(\rho(t)x))  \\
 &amp;=\boldsymbol\sigma(\rho(t)B(x)) &amp;\text{(equivariance of }B\text{)}\\
 &amp;=\rho(t)\boldsymbol\sigma(B(x)) &amp;\text{(equivariance of }\rho\text{)}\\
 &amp;=\rho(t)(\boldsymbol\sigma \circ{}B)(x)
-\end{align}\]</span> This is why we can construct <em>deep</em> nonlinear networks that remain translation-equivariant by design. We can alternate convolutions and pointwise nonlinearities, gaining expressive power while preserving the equivariance constraints, which is a wonderful thing to have!</p>
+\end{align}
+\]</span></p>
+<p>This is why we can construct <em>deep</em> nonlinear networks that remain translation-equivariant by design. We can alternate convolutions and pointwise nonlinearities, gaining expressive power while preserving the equivariance constraints, which is a wonderful thing to have!</p>
 <p>In all its generality, independent of task, data domain, or group, the <em>Geometric Deep Learning Blueprint</em> is formulated as follows: Let <span class="math inline">\(\Omega\)</span> and <span class="math inline">\(\Omega'\)</span> be domains, <span class="math inline">\(G\)</span> a symmetry group over <span class="math inline">\(\Omega\)</span>, and write <span class="math inline">\(\Omega' \subseteq \Omega\)</span> if <span class="math inline">\(\Omega'\)</span> can be considered a compact version of <span class="math inline">\(\Omega\)</span>. Then we have the following building blocks:</p>
 <ol type="1">
 <li>Linear <span class="math inline">\(G\)</span>-equivariant layer <span class="math inline">\(B :\mathcal X( \Omega, \mathcal C)\to \mathcal X ( \Omega ' , \mathcal C')\)</span> satisfying <span class="math inline">\(B(g\cdot x)=g\cdot B(x)\)</span> for all <span class="math inline">\(g\in G\)</span> and <span class="math inline">\(x\in \mathcal X(\Omega, \mathcal C)\)</span>.</li>
