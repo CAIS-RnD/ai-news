@@ -1,1 +1,1 @@
-Sitemap: https://CAIS-RnD.github.io/ai-news/sitemap.xml
+Sitemap: https://newsletter.chalmersaisociety.com/sitemap.xml

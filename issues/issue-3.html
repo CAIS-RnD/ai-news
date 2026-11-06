@@ -212,7 +212,7 @@ window.Quarto = {
 
 
 <p>When we started this project, we found that most information about operator learning was quite abstract and difficult to connect to an actual implementation. We wanted to understand the mathematical foundations of Fourier neural operators (FNOs) well enough to build one from scratch and then also learn how to apply it to a real problem.</p>
-<p>We also wrote a <strong><a href="../assets/3-fno/report_draft_v3.pdf">full report (PDF)</a></strong> that aims to build intuition around the underlying theory, from operators and kernels to our implementation and results. Essentially, we wanted to write the resource that we would have liked to have when we were getting started to get off the ground more quickly. The code is also available on <strong><a href="https://github.com/CAIS-RnD/operator_fluid_dynamics">GitHub</a></strong>.</p>
+<p>We also wrote a <strong><a href="../assets/3-fno/FNO_final.pdf">full report (PDF)</a></strong> that aims to build intuition around the underlying theory, from operators and kernels to our implementation and results. Essentially, we wanted to write the resource that we would have liked to have when we were getting started to get off the ground more quickly. The code is also available on <strong><a href="https://github.com/CAIS-RnD/operator_fluid_dynamics">GitHub</a></strong>.</p>
 <p>If it feels a bit much to read through the full report, this newsletter is meant to serve as a high-level overview. We walk through why standard neural networks struggle with continuous fields, how a few simple mathematical symmetries make the problem much more intuitive, and what we found when comparing our model to a numerical solver.</p>
 <hr>
 <section id="predicting-continuous-fields" class="level2">
@@ -300,7 +300,7 @@ Figure&nbsp;1: Twenty-frame forecast on a 256×256 grid. The numerical ground tr
 <li><strong>Fourier shortcut:</strong> Because convolution preserves wave frequencies, working in the frequency domain makes global interactions much more computationally feasible and also allows filtering out high-frequency noise.</li>
 <li><strong>Resolution transfer:</strong> When network weights represent operations on physical frequencies and approximate a field to field mapping, the model naturally generalizes across resolutions.</li>
 </ol>
-<p>If you want to explore the mathematical derivations in detail, the numerical solver setup, or our implementation details, you can find them in our <strong><a href="../assets/3-fno/report_draft_v3.pdf">full report (PDF)</a></strong> and the <strong><a href="https://github.com/CAIS-RnD/operator_fluid_dynamics">GitHub repository</a></strong>.</p>
+<p>If you want to explore the mathematical derivations in detail, the numerical solver setup, or our implementation details, you can find them in our <strong><a href="../assets/3-fno/FNO_final.pdf">full report (PDF)</a></strong> and the <strong><a href="https://github.com/CAIS-RnD/operator_fluid_dynamics">GitHub repository</a></strong>.</p>
 <p><em>We thank our partner Aixia for providing the AiQu computing resources used for training.</em></p>
 
 
@@ -380,7 +380,7 @@ Figure&nbsp;1: Twenty-frame forecast on a 256×256 grid. The numerical ground tr
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/CAIS-RnD\.github\.io\/ai-news\/");
+        var filterRegex = new RegExp("https:\/\/newsletter\.chalmersaisociety\.com");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
