@@ -11,7 +11,7 @@ image: ../assets/3-fno/rollout_256x256.gif
 
 When we started this project, we found that most information about operator learning was quite abstract and difficult to connect to an actual implementation. We wanted to understand the mathematical foundations of Fourier neural operators (FNOs) well enough to build one from scratch and then also learn how to apply it to a real problem.
 
-We also wrote a **[full report (PDF)](../assets/3-fno/report_draft_v3.pdf)** that aims to build intuition around the underlying theory, from operators and kernels to our implementation and results. Essentially, we wanted to write the resource that we would have liked to have when we were getting started to get off the ground more quickly. The code is also available on **[GitHub](https://github.com/CAIS-RnD/operator_fluid_dynamics)**.
+We also wrote a **[full report (PDF)](../assets/3-fno/FNO_final.pdf)** that aims to build intuition around the underlying theory, from operators and kernels to our implementation and results. Essentially, we wanted to write the resource that we would have liked to have when we were getting started to get off the ground more quickly. The code is also available on **[GitHub](https://github.com/CAIS-RnD/operator_fluid_dynamics)**.
 
 If it feels a bit much to read through the full report, this newsletter is meant to serve as a high-level overview. We walk through why standard neural networks struggle with continuous fields, how a few simple mathematical symmetries make the problem much more intuitive, and what we found when comparing our model to a numerical solver.
 
@@ -123,6 +123,6 @@ These are some of the key takeaways from exploring the mathematical foundations 
 3. **Fourier shortcut:** Because convolution preserves wave frequencies, working in the frequency domain makes global interactions much more computationally feasible and also allows filtering out high-frequency noise.
 4. **Resolution transfer:** When network weights represent operations on physical frequencies and approximate a field to field mapping, the model naturally generalizes across resolutions.
 
-If you want to explore the mathematical derivations in detail, the numerical solver setup, or our implementation details, you can find them in our **[full report (PDF)](../assets/3-fno/report_draft_v3.pdf)** and the **[GitHub repository](https://github.com/CAIS-RnD/operator_fluid_dynamics)**.
+If you want to explore the mathematical derivations in detail, the numerical solver setup, or our implementation details, you can find them in our **[full report (PDF)](../assets/3-fno/FNO_final.pdf)** and the **[GitHub repository](https://github.com/CAIS-RnD/operator_fluid_dynamics)**.
 
 *We thank our partner Aixia for providing the AiQu computing resources used for training.*

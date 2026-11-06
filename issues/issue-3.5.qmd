@@ -18,7 +18,7 @@ format:
 [Open or download the full report (PDF)](../assets/3-fno/FNO_final.pdf) · [Read the accompanying newsletter](issue-3.qmd)
 
 <iframe
-  src="../assets/3-fno/report_draft_v3.pdf"
+  src="../assets/3-fno/FNO_final.pdf"
   style="width: 100%; height: 85vh; min-height: 480px; border: none; display: block;"
   title="Understanding Fourier Neural Operators through fluid dynamics — full report">
 </iframe>

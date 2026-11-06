@@ -1,9 +1,12 @@
 project:
   type: website
   output-dir: _site
+  resources:
+    - CNAME
 
 website:
   title: "CAIS Newsletter"
+  site-url: "https://newsletter.chalmersaisociety.com"
   description: "R&D Updates and Architectural Analysis"
   navbar:
     logo: logo.png
