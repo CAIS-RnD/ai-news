@@ -1,6 +1,6 @@
 ---
 title: "AI Newsletter #01 – Kolmogorov-Arnold Networks!"
-author: "R&D Team"
+authors: "R&D Team"
 date: "March 2026"
 engine: markdown
 format: html

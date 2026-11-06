@@ -10,5 +10,14 @@
   },
   "issues/issue-2.md": {
     "issue-2.html": "2487848b"
+  },
+  "issues/issue-3.qmd": {
+    "issue-3.html": "7f55b47d"
+  },
+  "issues/issue-3.5.qmd": {
+    "issue-3.5.html": "c5b87a49"
+  },
+  "issues/issue-3-old.qmd": {
+    "issue-3-old.html": "f1f814a6"
   }
 }
