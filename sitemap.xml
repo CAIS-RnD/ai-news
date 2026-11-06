@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://CAIS-RnD.github.io/ai-news/issues/issue-2.html</loc>
-    <lastmod>2026-10-27T17:45:34.930Z</lastmod>
+    <loc>https://CAIS-RnD.github.io/ai-news/index.html</loc>
+    <lastmod>2026-11-06T12:12:54.880Z</lastmod>
   </url>
   <url>
-    <loc>https://CAIS-RnD.github.io/ai-news/index.html</loc>
-    <lastmod>2026-10-27T17:45:34.929Z</lastmod>
+    <loc>https://CAIS-RnD.github.io/ai-news/issues/issue-3.5.html</loc>
+    <lastmod>2026-11-06T12:12:54.881Z</lastmod>
   </url>
   <url>
     <loc>https://CAIS-RnD.github.io/ai-news/issues/issue-1.html</loc>
-    <lastmod>2026-10-27T17:45:34.929Z</lastmod>
+    <lastmod>2026-11-06T12:12:54.880Z</lastmod>
+  </url>
+  <url>
+    <loc>https://CAIS-RnD.github.io/ai-news/issues/issue-2.html</loc>
+    <lastmod>2026-11-06T12:12:54.881Z</lastmod>
+  </url>
+  <url>
+    <loc>https://CAIS-RnD.github.io/ai-news/issues/issue-3.html</loc>
+    <lastmod>2026-11-06T12:12:54.881Z</lastmod>
   </url>
 </urlset>
