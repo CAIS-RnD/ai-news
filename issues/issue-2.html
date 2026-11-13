@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="R&amp;D Team">
+<meta name="author" content="Isidor Manning">
 <meta name="dcterms.date" content="2026-10-01">
 
-<title>AI Newsletter #02 – Geometric Deep Learning – CAIS Newsletter</title>
+<title>CAIS R&amp;D Letter #02 – Geometric Deep Learning – CAIS R&amp;D Letter</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -48,7 +48,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-447e42e69aaa9833c0ba1b986f430b20.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c97cef6806cc7ee2c190d59ffa2ebcf7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-862d37bdaeb30b634f3df428ae76ef41.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -121,7 +121,7 @@ window.Quarto = {
     <img src="../logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">CAIS Newsletter</span>
+    <span class="navbar-title">CAIS R&amp;D Letter</span>
     </a>
   </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -181,7 +181,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">AI Newsletter #02 – Geometric Deep Learning</h1>
+<h1 class="title">CAIS R&amp;D Letter #02 – Geometric Deep Learning</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Geometric Deep Learning</div>
     <div class="quarto-category">Convolutional Neural Networks</div>
@@ -196,7 +196,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>R&amp;D Team </p>
+             <p>Isidor Manning </p>
           </div>
   </div>
     
@@ -221,7 +221,7 @@ window.Quarto = {
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">1. Introduction</h2>
 <p>Can we derive the neural network architectures from mathematical properties we want it to satisfy, rather than solely relying on engineering intuition? And can such a construction help explain <em>why</em> certain architectures work so well?</p>
-<p>In this second CAIS newsletter, we explore these two questions through the lens of Geometric Deep Learning (GDL), a mathematical framework for understanding neural networks through the underlying structure of data. Our primary goal is to show how one of the most influential architectures in deep learning, the Convolutional Neural Network (CNN), can be mathematically derived from simpler geometric principles, and subsequentially explore what this tells us about the broader future of deep learning.</p>
+<p>In this second CAIS R&amp;D letter, we explore these two questions through the lens of Geometric Deep Learning (GDL), a mathematical framework for understanding neural networks through the underlying structure of data. Our primary goal is to show how one of the most influential architectures in deep learning, the Convolutional Neural Network (CNN), can be mathematically derived from simpler geometric principles, and subsequentially explore what this tells us about the broader future of deep learning.</p>
 </section>
 <section id="real-world-data-has-structure" class="level2">
 <h2 class="anchored" data-anchor-id="real-world-data-has-structure">2. Real-world data has structure</h2>
@@ -453,7 +453,7 @@ A(\rho(t)h)&amp;=\frac{1}{|\Omega|}\sum_{u\in{}\Omega} h(u-t) \\
 </section>
 <section id="conclusions-and-final-reflections" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions-and-final-reflections">6. Conclusions and final reflections</h2>
-<p>We began this newsletter by asking whether we can derive neural architectures from mathematical constraints, and whether doing so can explain <em>why</em> they work. We have now given an answer of the first question: by requiring linearity and translation equivariance, we derived convolution, and from there constructed the familiar CNN architecture using the GDL blueprint. But the second question is maybe the more interesting one, and remains much more mysterious.</p>
+<p>We began this letter by asking whether we can derive neural architectures from mathematical constraints, and whether doing so can explain <em>why</em> they work. We have now given an answer of the first question: by requiring linearity and translation equivariance, we derived convolution, and from there constructed the familiar CNN architecture using the GDL blueprint. But the second question is maybe the more interesting one, and remains much more mysterious.</p>
 <p>Building a CNN in PyTorch is certainly easier than deriving one mathematically like we did here. Yet, there is something fundamentally different about these two approaches. Much of modern deep learning has been shaped by empirical discoveries and engineering principles. We have found effective architectures often before fully understanding why they work, when they generalize, how they relate to other architectures, and when one architecture is preferable to another. We have not answered all of these questions, but we have shown how GDL offers something important. An explanation for why convolution and weight sharing are natural choices for data with translation symmetry.</p>
 <p>GDL offers a method for how we might move beyond simply discovering architectures that work, toward understanding the mathematics that make them work. It is not a complete theory of modern deep learning, but a useful step toward one.</p>
 </section>
