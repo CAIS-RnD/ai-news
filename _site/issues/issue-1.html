@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Måns Westman">
 <meta name="dcterms.date" content="2026-03-01">
 
-<title>AI Newsletter #01 – Kolmogorov-Arnold Networks! – CAIS Newsletter</title>
+<title>CAIS R&amp;D Letter #01 – Kolmogorov-Arnold Networks! – CAIS R&amp;D Letter</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -155,7 +156,7 @@ window.Quarto = {
     <img src="../logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">CAIS Newsletter</span>
+    <span class="navbar-title">CAIS R&amp;D Letter</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -204,9 +205,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">AI Newsletter #01 – Kolmogorov-Arnold Networks!</h1>
+<h1 class="title">CAIS R&amp;D Letter #01 – Kolmogorov-Arnold Networks!</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Newsletters</div>
     <div class="quarto-category">Machine Learning</div>
     <div class="quarto-category">Kolmogorov-Arnold Networks</div>
     <div class="quarto-category">Neural Networks</div>
@@ -220,7 +220,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>R&amp;D Team </p>
+             <p>Måns Westman </p>
           </div>
   </div>
     
@@ -247,7 +247,7 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>Exploring the power of Kolmogorov-Arnold Networks for smarter, sharper function approximation.</p>
 </blockquote>
-<p>Welcome to our first newsletter! We’ll start with a bit of background on the math and architecture behind KANs, then go through a KAN implementation. The GitHub repo for everything is linked at the end of the article. Along the way, we’ll share some interesting empirical results and try to build an intuition for how it all works. Hope you enjoy it!</p>
+<p>Welcome to our first R&amp;D letter! We’ll start with a bit of background on the math and architecture behind KANs, then go through a KAN implementation. The GitHub repo for everything is linked at the end of the article. Along the way, we’ll share some interesting empirical results and try to build an intuition for how it all works. Hope you enjoy it!</p>
 <hr>
 <p><strong>The MLP architecture and limitations</strong><br>
 Standard multi-layer perceptrons (MLPs) place fixed activation functions (ReLU, SiLU, etc.) <em>inside the nodes</em>. Linear transformations (weights) live on the <em>edges</em>. This architecture forces the network to approximate any target function by stitching together many global hyperplanes. This is an approach that works but is extremely parameter-inefficient for smooth, high-frequency, or compositional functions (eg. <span class="math inline">\(f(g(x))\)</span>).</p>

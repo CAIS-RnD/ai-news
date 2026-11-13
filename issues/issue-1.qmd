@@ -1,10 +1,10 @@
 ---
-title: "AI Newsletter #01 – Kolmogorov-Arnold Networks!"
-authors: "R&D Team"
+title: "CAIS R&D Letter #01 – Kolmogorov-Arnold Networks!"
+author: "Måns Westman"
 date: "March 2026"
 engine: markdown
 format: html
-categories: ["Newsletters", "Machine Learning", "Kolmogorov-Arnold Networks", "Neural Networks"]
+categories: ["Machine Learning", "Kolmogorov-Arnold Networks", "Neural Networks"]
 ---
 
 <div style="height: 40px;"></div>
@@ -14,7 +14,7 @@ categories: ["Newsletters", "Machine Learning", "Kolmogorov-Arnold Networks", "N
 > Exploring the power of Kolmogorov-Arnold Networks for smarter, sharper function approximation.
 
 
-Welcome to our first newsletter! We’ll start with a bit of background on the math and architecture behind KANs, then go through a KAN implementation. The GitHub repo for everything is linked at the end of the article. Along the way, we’ll share some interesting empirical results and try to build an intuition for how it all works. Hope you enjoy it!
+Welcome to our first R&D letter! We’ll start with a bit of background on the math and architecture behind KANs, then go through a KAN implementation. The GitHub repo for everything is linked at the end of the article. Along the way, we’ll share some interesting empirical results and try to build an intuition for how it all works. Hope you enjoy it!
 
 ___
 

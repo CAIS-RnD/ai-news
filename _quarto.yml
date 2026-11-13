@@ -5,7 +5,7 @@ project:
     - CNAME
 
 website:
-  title: "CAIS Newsletter"
+  title: "CAIS R&D Letter"
   site-url: "https://newsletter.chalmersaisociety.com"
   description: "R&D Updates and Architectural Analysis"
   navbar:

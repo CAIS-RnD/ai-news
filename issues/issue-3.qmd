@@ -1,10 +1,10 @@
 ---
-title: "AI Newsletter #03 – Learning to predict fluid motion with Fourier neural operators"
+title: "CAIS R&D Letter #03 – Learning to predict fluid motion with Fourier neural operators"
 author:
   - Måns Westman
   - Sofia Nguyen
 date: "November 2026"
-categories: ["Newsletters", "Machine Learning", "Fourier Neural Operators", "Fluid Dynamics"]
+categories: ["Machine Learning", "Fourier Neural Operators", "Fluid Dynamics"]
 description: "An intuitive introduction to Fourier neural operators, with fluid forecasts and results from our implementation."
 image: ../assets/3-fno/rollout_256x256.gif
 ---
@@ -13,7 +13,7 @@ When we started this project, we found that most information about operator lear
 
 We also wrote a **[full report (PDF)](../assets/3-fno/FNO_final.pdf)** that aims to build intuition around the underlying theory, from operators and kernels to our implementation and results. Essentially, we wanted to write the resource that we would have liked to have when we were getting started to get off the ground more quickly. The code is also available on **[GitHub](https://github.com/CAIS-RnD/operator_fluid_dynamics)**.
 
-If it feels a bit much to read through the full report, this newsletter is meant to serve as a high-level overview. We walk through why standard neural networks struggle with continuous fields, how a few simple mathematical symmetries make the problem much more intuitive, and what we found when comparing our model to a numerical solver.
+If it feels a bit much to read through the full report, this letter is meant to serve as a high-level overview. We walk through why standard neural networks struggle with continuous fields, how a few simple mathematical symmetries make the problem much more intuitive, and what we found when comparing our model to a numerical solver.
 
 ---
 
@@ -34,7 +34,7 @@ On a $64 \times 64$ grid, we have 4,096 numbers describing the state. The most s
 1. **Lost spatial geometry:** Flattening the field into a vector ignores (and removes) spatial relationships. This means that points that sit next to each other in the fluid can end up far apart in a 1D vector. In other words, the network does not automatically know that pixel $(1, 64)$ is right next to pixel $(2, 64)$.
 2. **Resolution lock-in:** An MLP is fundamentally tied to the number of input nodes. If you train on 4,096 numbers and then want to evaluate the same fluid on a finer $256 \times 256$ grid (65,536 values), the matrix multiplications do not match in size. (So this is just an impossibility, not a matter of accuracy.)
 
-You might have heard of Convolutional neural networks (CNNs) before (especially if you have read our previous newsletter!) and it is quite intuitive that they can handle spatial relationships much better than traditional MLPs. However, standard CNN filters are tied to pixel steps rather than physical distances, and their receptive fields are local, meaning that they focus on a small area at a time. In a fluid, what happens at one side of the domain affects the other side. So, in essence this means that it is not very natural for a CNN to connect distant points and their interaction (this is the theory of priors).
+You might have heard of Convolutional neural networks (CNNs) before (especially if you have read our previous letter!) and it is quite intuitive that they can handle spatial relationships much better than traditional MLPs. However, standard CNN filters are tied to pixel steps rather than physical distances, and their receptive fields are local, meaning that they focus on a small area at a time. In a fluid, what happens at one side of the domain affects the other side. So, in essence this means that it is not very natural for a CNN to connect distant points and their interaction (this is the theory of priors).
 
 The core issue is that a fluid is not really a list of numbers but is actually a continuous field, and the grid that we give a network is just where we happened to measure that field.
 

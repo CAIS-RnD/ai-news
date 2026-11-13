@@ -15,7 +15,7 @@ format:
     toc: false
 ---
 
-[Open or download the full report (PDF)](../assets/3-fno/FNO_final.pdf) · [Read the accompanying newsletter](issue-3.qmd)
+[Open or download the full report (PDF)](../assets/3-fno/FNO_final.pdf) · [Read the accompanying R&D letter](issue-3.qmd)
 
 <iframe
   src="../assets/3-fno/FNO_final.pdf"

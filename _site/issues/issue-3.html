@@ -11,7 +11,7 @@
 <meta name="dcterms.date" content="2026-11-01">
 <meta name="description" content="An intuitive introduction to Fourier neural operators, with fluid forecasts and results from our implementation.">
 
-<title>AI Newsletter #03 – Learning to predict fluid motion with Fourier neural operators – CAIS Newsletter</title>
+<title>CAIS R&amp;D Letter #03 – Learning to predict fluid motion with Fourier neural operators – CAIS R&amp;D Letter</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -119,7 +119,7 @@ window.Quarto = {
     <img src="../logo.png" alt="" class="navbar-logo dark-content">
     </a>
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">CAIS Newsletter</span>
+    <span class="navbar-title">CAIS R&amp;D Letter</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -166,9 +166,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">AI Newsletter #03 – Learning to predict fluid motion with Fourier neural operators</h1>
+<h1 class="title">CAIS R&amp;D Letter #03 – Learning to predict fluid motion with Fourier neural operators</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">Newsletters</div>
     <div class="quarto-category">Machine Learning</div>
     <div class="quarto-category">Fourier Neural Operators</div>
     <div class="quarto-category">Fluid Dynamics</div>
@@ -209,7 +208,7 @@ window.Quarto = {
 
 <p>When we started this project, we found that most information about operator learning was quite abstract and difficult to connect to an actual implementation. We wanted to understand the mathematical foundations of Fourier neural operators (FNOs) well enough to build one from scratch and then also learn how to apply it to a real problem.</p>
 <p>We also wrote a <strong><a href="../assets/3-fno/FNO_final.pdf">full report (PDF)</a></strong> that aims to build intuition around the underlying theory, from operators and kernels to our implementation and results. Essentially, we wanted to write the resource that we would have liked to have when we were getting started to get off the ground more quickly. The code is also available on <strong><a href="https://github.com/CAIS-RnD/operator_fluid_dynamics">GitHub</a></strong>.</p>
-<p>If it feels a bit much to read through the full report, this newsletter is meant to serve as a high-level overview. We walk through why standard neural networks struggle with continuous fields, how a few simple mathematical symmetries make the problem much more intuitive, and what we found when comparing our model to a numerical solver.</p>
+<p>If it feels a bit much to read through the full report, this letter is meant to serve as a high-level overview. We walk through why standard neural networks struggle with continuous fields, how a few simple mathematical symmetries make the problem much more intuitive, and what we found when comparing our model to a numerical solver.</p>
 <hr>
 <section id="predicting-continuous-fields" class="level2">
 <h2 class="anchored" data-anchor-id="predicting-continuous-fields">Predicting continuous fields</h2>
@@ -232,7 +231,7 @@ Figure&nbsp;1: Twenty-frame forecast on a 256×256 grid. The numerical ground tr
 <li><strong>Lost spatial geometry:</strong> Flattening the field into a vector ignores (and removes) spatial relationships. This means that points that sit next to each other in the fluid can end up far apart in a 1D vector. In other words, the network does not automatically know that pixel <span class="math inline">\((1, 64)\)</span> is right next to pixel <span class="math inline">\((2, 64)\)</span>.</li>
 <li><strong>Resolution lock-in:</strong> An MLP is fundamentally tied to the number of input nodes. If you train on 4,096 numbers and then want to evaluate the same fluid on a finer <span class="math inline">\(256 \times 256\)</span> grid (65,536 values), the matrix multiplications do not match in size. (So this is just an impossibility, not a matter of accuracy.)</li>
 </ol>
-<p>You might have heard of Convolutional neural networks (CNNs) before (especially if you have read our previous newsletter!) and it is quite intuitive that they can handle spatial relationships much better than traditional MLPs. However, standard CNN filters are tied to pixel steps rather than physical distances, and their receptive fields are local, meaning that they focus on a small area at a time. In a fluid, what happens at one side of the domain affects the other side. So, in essence this means that it is not very natural for a CNN to connect distant points and their interaction (this is the theory of priors).</p>
+<p>You might have heard of Convolutional neural networks (CNNs) before (especially if you have read our previous letter!) and it is quite intuitive that they can handle spatial relationships much better than traditional MLPs. However, standard CNN filters are tied to pixel steps rather than physical distances, and their receptive fields are local, meaning that they focus on a small area at a time. In a fluid, what happens at one side of the domain affects the other side. So, in essence this means that it is not very natural for a CNN to connect distant points and their interaction (this is the theory of priors).</p>
 <p>The core issue is that a fluid is not really a list of numbers but is actually a continuous field, and the grid that we give a network is just where we happened to measure that field.</p>
 <hr>
 </section>

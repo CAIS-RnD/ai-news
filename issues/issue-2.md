@@ -1,6 +1,6 @@
 ---
-title: "AI Newsletter #02 – Geometric Deep Learning"
-author: "R&D Team"
+title: "CAIS R&D Letter #02 – Geometric Deep Learning"
+author: "Isidor Manning"
 date: "October 2026"
 engine: markdown
 format: html
@@ -18,7 +18,7 @@ categories:
 
 Can we derive the neural network architectures from mathematical properties we want it to satisfy, rather than solely relying on engineering intuition? And can such a construction help explain _why_ certain architectures work so well?
 
-In this second CAIS newsletter, we explore these two questions through the lens of Geometric Deep Learning (GDL), a mathematical framework for understanding neural networks through the underlying structure of data. Our primary goal is to show how one of the most influential architectures in deep learning, the Convolutional Neural Network (CNN), can be mathematically derived from simpler geometric principles, and subsequentially explore what this tells us about the broader future of deep learning.
+In this second CAIS R&D letter, we explore these two questions through the lens of Geometric Deep Learning (GDL), a mathematical framework for understanding neural networks through the underlying structure of data. Our primary goal is to show how one of the most influential architectures in deep learning, the Convolutional Neural Network (CNN), can be mathematically derived from simpler geometric principles, and subsequentially explore what this tells us about the broader future of deep learning.
 
 ## 2. Real-world data has structure
 
@@ -286,7 +286,7 @@ We've now constructed a translation-invariant image classifier from translation-
 
 ## 6. Conclusions and final reflections
 
-We began this newsletter by asking whether we can derive neural architectures from mathematical constraints, and whether doing so can explain _why_ they work. We have now given an answer of the first question: by requiring linearity and translation equivariance, we derived convolution, and from there constructed the familiar CNN architecture using the GDL blueprint. But the second question is maybe the more interesting one, and remains much more mysterious.
+We began this letter by asking whether we can derive neural architectures from mathematical constraints, and whether doing so can explain _why_ they work. We have now given an answer of the first question: by requiring linearity and translation equivariance, we derived convolution, and from there constructed the familiar CNN architecture using the GDL blueprint. But the second question is maybe the more interesting one, and remains much more mysterious.
 
 Building a CNN in PyTorch is certainly easier than deriving one mathematically like we did here. Yet, there is something fundamentally different about these two approaches. Much of modern deep learning has been shaped by empirical discoveries and engineering principles. We have found effective architectures often before fully understanding why they work, when they generalize, how they relate to other architectures, and when one architecture is preferable to another. We have not answered all of these questions, but we have shown how GDL offers something important. An explanation for why convolution and weight sharing are natural choices for data with translation symmetry.
 

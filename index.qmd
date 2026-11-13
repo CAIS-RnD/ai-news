@@ -11,6 +11,6 @@ page-layout: full
 title-block-banner: true
 ---
 
-Welcome to the R&D intelligence feed. Here you will find technical analysis, our projects and newsletters!
+Welcome to the CAIS R&D Letter. Here you will find technical analysis, research deep-dives, and project updates.
 <br>
 <br>
