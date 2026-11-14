@@ -9,7 +9,7 @@ description: "An intuitive introduction to Fourier neural operators, with fluid 
 image: ../assets/3-fno/rollout_256x256.gif
 ---
 
-When we started this project, we found that most information about operator learning was quite abstract and difficult to connect to an actual implementation. We wanted to understand the mathematical foundations of Fourier neural operators (FNOs) well enough to build one from scratch and then also learn how to apply it to a real problem.
+When we started this project, we found that most information about operator learning was quite abstract and difficult to connect to the actual implementations. We wanted to understand the mathematical foundations of Fourier neural operators (FNOs) so that we could build one from scratch and apply the theory to a real problem.
 
 We also wrote a **[full report (PDF)](../assets/3-fno/FNO_final.pdf)** that aims to build intuition around the underlying theory, from operators and kernels to our implementation and results. Essentially, we wanted to write the resource that we would have liked to have when we were getting started to get off the ground more quickly. The code is also available on **[GitHub](https://github.com/CAIS-RnD/operator_fluid_dynamics)**.
 
@@ -80,12 +80,15 @@ A global convolution across $N$ grid points connects every point to every other 
 
 This is where Fourier transforms help. Instead of describing the fluid point by point, we can describe it as a sum of sine and cosine waves across the domain. Broad waves describe large flows, while finer waves describe smaller, oscillating variations.
 
-As we show in more detail in the report, convolution preserves frequency. This means that when you apply convolution to a sine wave, the output remains a sine wave with the exact same frequency—only its amplitude (magnitude) and phase (shift) change.
+As we show in more detail in the report, convolution preserves frequency. This means that when you apply convolution to a sine wave, the output remains a sine wave with the exact same frequency (only its amplitude (magnitude) and phase (shift) change).
 
-This is the crucial part, because of this property, waves of different frequencies do not mix during convolution:
+This is the crucial part, because of this property, waves of different frequencies do not mix during convolution. In turn this means that:
+
 - We do not need to calculate all pairwise interactions across space.
+
 - We can transform the field into Fourier space with a Fast Fourier Transform (FFT), adjust each wave's amplitude and phase by multiplying with learned complex weights, and transform back with an inverse FFT.
-- Using the FFT, the computational cost drops from $O(N^2)$ to **$O(N \log N)$**.
+
+- The computational cost drops from $O(N^2)$ to **$O(N \log N)$**.
 
 On top of that, in fluid dynamics, most of the field's behavior is captured by the lower-frequency waves that drives the flow. Therefore, we can simply cut off some of the higher frequencies and keep the lowest modes (in our case, the first 12 frequencies along each axis). This keeps the number of learned parameters relatively small while still capturing most of the dynamics of the flow.
 
